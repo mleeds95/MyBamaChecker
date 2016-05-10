@@ -1,12 +1,28 @@
 import sys
 import time
 import ctypes
+import os
 from subprocess import Popen
 from MyBamaChecker import MyBamaChecker
 
+USERNAME=None
+PASSWORD=None
 
-USERNAME = sys.argv[1]
-PASSWORD = sys.argv[2]
+try:
+    USERNAME = sys.argv[1]
+except:
+    USERNAME = os.environ["MYBAMA_USERNAME"]
+try:
+    PASSWORD = sys.argv[2]
+except:
+    PASSWORD = os.environ["MYBAMA_PASS"]
+
+if USERNAME == None or PASSWORD == None:
+    print("A username or password was not supplied.")
+    print("Username and password can also be environment variables:")
+    print("\tMYBAMA_USERNAME")
+    print("\tMYBAMA_PASS")
+    sys.exit(1)
 
 def main():
     crawler = MyBamaChecker(True)
